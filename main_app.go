@@ -1,64 +1,65 @@
 package main
 
 import "fmt"
+import "strings"
 import "bufio"
-import "log"
+// import "log"
 import "os"
-import (
-	_ "github.com/lib/pq"
-	"database/sql"
-)
-
+import "encoding/csv"
 
 func main() {
-	// db, err := sql.Open("postgres", "user=pqgotest dbname=pqgotest sslmode=verify-full") ?sslmode=verify-full
-	db, err := sql.Open("postgres", "postgres://dbuser:vitaepassword@ec2-54-183-9-10.us-west-1.compute.amazonaws.com/data_warehouse")
-	if err != nil {
-		log.Fatal(err)
-	}
+	// fmt.Println(os.Args)
+	sourcefile_add := os.Args[1]
+	file, error := os.Create("output.csv")
 
-	rows, err := db.Query("select * from ssdm_raw;")
-	fmt.Println(rows)
-	if err != nil {
-		log.Fatal(err)
-	}
+    if error != nil {panic(error)}
+    defer file.Close()
 
-    file, _ := os.Open("/Users/roberthan/Documents/go/src/github.com/roberthan/va_process_ssdm/test_data.txt")
-	scanner := bufio.NewScanner(file)
+    // New Csv writer
+    writer := csv.NewWriter(file)
+
+    // Headers
+    var new_headers = []string { "SSN", "FIRSTNAME", "MIDDLENAME", "LASTNAME", "SUFFIX","BDAY","BMONTH","BYEAR", "DDAY", "DMONTH", "DYEAR", "RAW" }        
+    returnError := writer.Write(new_headers)
+    if returnError != nil {
+        fmt.Println(returnError)
+    }
+    // sourcefile, _ := os.Open("/home/ec2-user/go/src/github.com/roberthan/va_process_ssdm/test_data.txt")
+    sourcefile, _ := os.Open(sourcefile_add)
+    // sourcefile, _ := os.Open("/Users/roberthan/Documents/go/src/github.com/roberthan/va_process_ssdm/test_data.txt")
+	scanner := bufio.NewScanner(sourcefile)
 	count := 15
 	var slice [15]string
-    var j int
-    j = 0
+    j := 0
 	for scanner.Scan() {
-		// fmt.Println(j)
+
 		slice[j] = scanner.Text()
 		j++
 	    if count <= j{
 			for i := range slice {
-				// byteArray := []byte(slice[i])
-    			parse_ssdm(slice[i])
-    	// 		if old_ssn > ssn{
-					// fmt.Println(j)
-    	// 		}
+				values := parse_ssdm(slice[i])
+				returnError := writer.Write(values)
+	    		if returnError != nil {
+	        		fmt.Println(returnError)
+	    		}
         		i++
     		}
+    		writer.Flush() 
 			j = 0
 	    }
-	    
 	}
-	if err := scanner.Err(); err != nil {
-    	log.Fatal(err)
-	}
+	
 }
 
-func parse_ssdm(str string) string{
-	// lastName := string(str[10:30])
-	ssn := string(str[1:10])
-	// nameSuffix := string(str[30:33])
-	// firstName := string(str[34:49])
-	middleName := string(str[49:64])
-	dod := string(str[65:73])
-	// dob := string(str[73:81])
-	fmt.Println(middleName + ":"+dod)
-	return ssn
+func parse_ssdm(str string) []string{
+	lastName := strings.TrimSpace(string(str[10:30]))
+	ssn := strings.TrimSpace(string(str[1:10]))
+	nameSuffix := strings.TrimSpace(string(str[30:34]))
+	firstName := strings.TrimSpace(string(str[34:49]))
+	middleName := strings.TrimSpace(string(str[49:64]))
+	dod := strings.TrimSpace(string(str[65:73]))
+	dob := strings.TrimSpace(string(str[73:81]))
+	// fmt.Println(middleName + ":"+dod)
+	values := []string {ssn, firstName, middleName, lastName, nameSuffix, dob[0:2], dob[2:4], dob[4:8], dod[0:2], dod[2:4], dod[4:8]}
+	return values
 }
