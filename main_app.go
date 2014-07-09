@@ -28,8 +28,8 @@ func main() {
     sourcefile, _ := os.Open(sourcefile_add)
     // sourcefile, _ := os.Open("/Users/roberthan/Documents/go/src/github.com/roberthan/va_process_ssdm/test_data.txt")
 	scanner := bufio.NewScanner(sourcefile)
-	count := 15
-	var slice [15]string
+	count := 2500
+	var slice [2500]string
     j := 0
 	for scanner.Scan() {
 
