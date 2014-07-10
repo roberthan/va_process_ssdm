@@ -19,11 +19,11 @@ func main() {
     writer := csv.NewWriter(file)
 
     // Headers
-    var new_headers = []string { "SSN", "FIRSTNAME", "MIDDLENAME", "LASTNAME", "SUFFIX","BDAY","BMONTH","BYEAR", "DDAY", "DMONTH", "DYEAR", "RAW" }        
-    returnError := writer.Write(new_headers)
-    if returnError != nil {
-        fmt.Println(returnError)
-    }
+    // var new_headers = []string { "SSN", "FIRSTNAME", "MIDDLENAME", "LASTNAME", "SUFFIX","BDAY","BMONTH","BYEAR", "DDAY", "DMONTH", "DYEAR", "RAW" }        
+    // returnError := writer.Write(new_headers)
+    // if returnError != nil {
+        // fmt.Println(returnError)
+    // }
     // sourcefile, _ := os.Open("/home/ec2-user/go/src/github.com/roberthan/va_process_ssdm/test_data.txt")
     sourcefile, _ := os.Open(sourcefile_add)
     // sourcefile, _ := os.Open("/Users/roberthan/Documents/go/src/github.com/roberthan/va_process_ssdm/test_data.txt")
@@ -70,6 +70,6 @@ func parse_ssdm(str string) []string{
 	dod := strings.TrimSpace(string(str[65:73]))
 	dob := strings.TrimSpace(string(str[73:81]))
 	// fmt.Println(middleName + ":"+dod)
-	values := []string {ssn, firstName, middleName, lastName, nameSuffix, dob[0:2], dob[2:4], dob[4:8], dod[0:2], dod[2:4], dod[4:8]}
+	values := []string {ssn, firstName, middleName, lastName, nameSuffix, dob[0:2], dob[2:4], dob[4:8], dod[0:2], dod[2:4], dod[4:8], str}
 	return values
 }

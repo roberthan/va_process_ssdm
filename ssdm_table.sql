@@ -3,12 +3,12 @@ CREATE TABLE SSDM_RAW(
    FIRSTNAME           CHAR(15)    NOT NULL,
    MIDDLENAME           CHAR(15)    NOT NULL,
    LASTNAME           CHAR(20)    NOT NULL,
-   SUFFIX           CHAR(6),
-   BDAY            varchar(2),
-   BMONTH            varchar(2),
+   SUFFIX           varCHAR(6),
+   BDAY            varchar(4),
+   BMONTH            varchar(4),
    BYEAR            varchar(4),
-   DDAY            varchar(2),
-   DMONTH            varchar(2),
+   DDAY            varchar(4),
+   DMONTH            varchar(4),
    DYEAR            varchar(4),
    RAW        varchar(82)
 );
