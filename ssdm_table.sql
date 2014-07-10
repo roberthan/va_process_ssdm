@@ -9,8 +9,7 @@ CREATE TABLE SSDM_RAW(
    BYEAR            varchar(4),
    DDAY            varchar(2),
    DMONTH            varchar(2),
-   DYEAR            varchar(4),
-   RAW        varchar(82)
+   DYEAR            varchar(4)
 );
 
 copy SSDM_RAW from '/home/ec2-user/output1.csv' DELIMITERS ',' CSV;

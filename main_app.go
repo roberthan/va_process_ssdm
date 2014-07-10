@@ -70,6 +70,6 @@ func parse_ssdm(str string) []string{
 	dod := strings.TrimSpace(string(str[65:73]))
 	dob := strings.TrimSpace(string(str[73:81]))
 	// fmt.Println(middleName + ":"+dod)
-	values := []string {ssn, firstName, middleName, lastName, nameSuffix, dob[0:2], dob[2:4], dob[4:8], dod[0:2], dod[2:4], dod[4:8], str}
+	values := []string {ssn, firstName, middleName, lastName, nameSuffix, dob[0:2], dob[2:4], dob[4:8], dod[0:2], dod[2:4], dod[4:8]}
 	return values
 }
