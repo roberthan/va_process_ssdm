@@ -44,14 +44,24 @@ func main() {
 	    		}
         		i++
     		}
+    		fmt.Println(slice[j])
     		writer.Flush() 
 			j = 0
 	    }
 	}
-	
+	for i := 0;  i<j; i++{
+		values := parse_ssdm(slice[i])
+		returnError := writer.Write(values)
+	    if returnError != nil {
+	    	fmt.Println(returnError)
+	    }
+    }
+    fmt.Println(slice[j])
+    writer.Flush() 	
 }
 
 func parse_ssdm(str string) []string{
+	// fmt.Println(str)
 	lastName := strings.TrimSpace(string(str[10:30]))
 	ssn := strings.TrimSpace(string(str[1:10]))
 	nameSuffix := strings.TrimSpace(string(str[30:34]))

@@ -1,14 +1,16 @@
 CREATE TABLE SSDM_RAW(
-   SSN INT PRIMARY KEY     NOT NULL,
+   SSN varchar(9) PRIMARY KEY     NOT NULL,
    FIRSTNAME           CHAR(15)    NOT NULL,
    MIDDLENAME           CHAR(15)    NOT NULL,
    LASTNAME           CHAR(20)    NOT NULL,
-   SUFFIX           CHAR(4),
-   BDAY            SMALLINT,
-   BMONTH            SMALLINT,
-   BYEAR            SMALLINT,
-   DDAY            SMALLINT,
-   DMONTH            SMALLINT,
-   DYEAR            SMALLINT,
-   RAW        CHAR(82) NOT NULL
+   SUFFIX           CHAR(6),
+   BDAY            varchar(2),
+   BMONTH            varchar(2),
+   BYEAR            varchar(4),
+   DDAY            varchar(2),
+   DMONTH            varchar(2),
+   DYEAR            varchar(4),
+   RAW        varchar(82)
 );
+
+copy SSDM_RAW from '/home/ec2-user/output1.csv' DELIMITERS ',' CSV;
