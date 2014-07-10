@@ -28,8 +28,8 @@ func main() {
     sourcefile, _ := os.Open(sourcefile_add)
     // sourcefile, _ := os.Open("/Users/roberthan/Documents/go/src/github.com/roberthan/va_process_ssdm/test_data.txt")
 	scanner := bufio.NewScanner(sourcefile)
-	count := 2500
-	var slice [2500]string
+	count := 8000
+	var slice [8000]string
     j := 0
 	for scanner.Scan() {
 
@@ -44,7 +44,7 @@ func main() {
 	    		}
         		i++
     		}
-    		fmt.Println(slice[0])
+    		// fmt.Println(slice[0])
     		writer.Flush() 
 			j = 0
 	    }
@@ -56,7 +56,7 @@ func main() {
 	    	fmt.Println(returnError)
 	    }
     }
-    fmt.Println(slice[0])
+    // fmt.Println(slice[0])
     writer.Flush() 	
 }
 
