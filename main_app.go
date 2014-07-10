@@ -44,7 +44,7 @@ func main() {
 	    		}
         		i++
     		}
-    		fmt.Println(slice[j])
+    		fmt.Println(slice[0])
     		writer.Flush() 
 			j = 0
 	    }
@@ -56,7 +56,7 @@ func main() {
 	    	fmt.Println(returnError)
 	    }
     }
-    fmt.Println(slice[j])
+    fmt.Println(slice[0])
     writer.Flush() 	
 }
 
